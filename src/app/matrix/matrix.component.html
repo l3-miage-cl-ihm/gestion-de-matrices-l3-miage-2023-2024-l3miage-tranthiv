@@ -1,0 +1,7 @@
+
+<table class="matrix">
+    <tr *ngFor="let row of data, let i = index">
+        <td *ngFor="let v of getMatrixLine(data, i); index as j">{{v}}
+        </td>
+    </tr>
+</table>
