@@ -39,19 +39,7 @@ export class MatrixComponent {
     this.pointerOver.emit([line, column]);
   }
 
-  trackByIndex(index: number) {
-    return index;
-  }
-
-  trackByLine(index: number, line: number[]) {
-    return index;
-  }
-
-  trackByColumn(index: number, cell: number) {
-    return index;
-  }
-
-
+  
                       
 }
 
