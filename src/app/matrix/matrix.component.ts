@@ -10,7 +10,7 @@ import { Matrix, initMatrixIntRandom, getMatrixLine, getMatrixColumn } from '../
   
 export class MatrixComponent {
   
-  @Input({ required: true }) data: Matrix<number, number, number> = initMatrixIntRandom<number, number>(0, 0);
+  @Input({ required: true }) data!: Matrix<number, number, number>;
   
   getMatrixLine = getMatrixLine;
   getMatrixColumn = getMatrixColumn;

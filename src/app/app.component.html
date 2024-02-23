@@ -3,33 +3,33 @@
 <br>
 <br>
 <div> M1 lines :
-    <input type="number" [ngModel]="sigL1()" (change)="changeL1($any($event.target).value)">
+    <input type="number" [ngModel]="sigL1()" (ngModelChange)="sigL1.set($event)">
 </div>
 <div>
     M1 columns :
-    <input type="number" [ngModel]="sigH1()" (change)="changeH1($any($event.target).value)">
+    <input type="number" [ngModel]="sigH1()" (ngModelChange)="sigH1.set($event)">
 </div>
 <div>
     M2 lines :
-    <input type="number" [ngModel]="sigL2()" (change)="changeL2($any($event.target).value)">
+    <input type="number" [ngModel]="sigL2()" (ngModelChange)="sigL2.set($event)">
 </div>
 <div>
     M2 columns :
-    <input type="number" [ngModel]="sigH2()" (change)="changeH2($any($event).target.value)">
+    <input type="number" [ngModel]="sigH2()" (ngModelChange)="sigH2.set($event)">
 </div>
 
 <br>
 <br>
 
 
-<div> M1= <app-matrix [data]="sigM1()"></app-matrix>
-     M2=<app-matrix [data]="sigM2()"></app-matrix> </div>
+<pre>
+    M1 = <app-matrix [data]="sigM1()"></app-matrix>
+    M2 = <app-matrix [data]="sigM2()"></app-matrix> 
+ M1+M2 = <app-matrix *ngIf="sigM1plusM2() as M; else matUndef" [data]="M"></app-matrix>
+ M1*M2 = <app-matrix *ngIf="sigM1xM2()    as M; else matUndef" [data]="M"></app-matrix>
+</pre>
 
-
-<div> M1+M2=
-<app-matrix [data]="sigM1plusM2()">M1+M2</app-matrix>
-M1*M2=
-<app-matrix [data]="sigM1xM2()">M1*M2</app-matrix>
-</div>
-
+<ng-template #matUndef>
+    Matrice indéfinie
+</ng-template>
 

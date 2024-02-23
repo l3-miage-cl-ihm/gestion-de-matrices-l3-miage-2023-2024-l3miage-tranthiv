@@ -101,10 +101,13 @@ export function transpose<T, L extends number, C extends number>(M: Matrix<T, L,
  * @param M2 Second Matrix
  * @returns the sum of the two matrixes
  */
-export function addIntMatrixes<L extends number, C extends number>(M1: Matrix<number, L, C>, M2: Matrix<number, NbLines<typeof M1>, NbColumns<typeof M1>>): Matrix<number, L, C> {
+export function addIntMatrixes<L extends number, C extends number>(M1: Matrix<number, L, C>, M2: Matrix<number, L, C>): Matrix<number, L, C> {
   return initMatrix( (i, j) => M1.at(i)!.at(j)! + M2.at(i)!.at(j)!, M1.length, M1.at(0)?.length ?? 0 as C);
 }
 
+export function isMatrixSized<T, L extends number, C extends number>(M: Matrix<T, number, number>, L: L, C: C): M is Matrix<T, L, C> {
+  return M.length === L && (M.at(0)?.length || 0) === C;
+}
 
 /**
  * Multiply two matrixes, the first of size L x C, the second of size C x L
@@ -112,7 +115,7 @@ export function addIntMatrixes<L extends number, C extends number>(M1: Matrix<nu
  * @param M2 Second Matrix, size C x L
  * @returns M1 x M2, a matrix of size L x L
  */
-export function multiplyIntMatrixes<L extends number, C extends number>(M1: Matrix<number, L, C>, M2: Matrix<number, NbColumns<typeof M1>, NbLines<typeof M1>>): Matrix<number, L, L> {
+export function multiplyIntMatrixes<L extends number, C extends number>(M1: Matrix<number, L, C>, M2: Matrix<number, C, L>): Matrix<number, L, L> {
   if (M1.length === 0) return [] as unknown as Matrix<number, L, L>;
 
   const M2t = transpose(M2);
