@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from '@angular/core';
-import { Matrix, initMatrixIntRandom, getMatrixLine, getMatrixColumn } from '../matrix';
+import { Matrix } from '../matrix';
 
 @Component({
   selector: 'app-matrix',
@@ -7,48 +7,34 @@ import { Matrix, initMatrixIntRandom, getMatrixLine, getMatrixColumn } from '../
   styleUrls: ['./matrix.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-  
+
 export class MatrixComponent {
   
-  @Input({ required: true }) data: Matrix<number, number, number> = initMatrixIntRandom<number, number>(0, 0);
-  
-  getMatrixLine = getMatrixLine;
-  getMatrixColumn = getMatrixColumn;
-  
-  @Input() highlight: Highlight = undefined;
-  @Output() pointerOver = new EventEmitter<[number, number] | undefined>();
 
-  highlightLine(line: number) {
-    this.highlight = { line };
+  @Input({ required: true }) data!: Matrix<number,number,number>  | undefined 
+  @Input({ required: true}) highlight: Highlight = undefined;
+
+  @Output() pointerOver = new EventEmitter<[line:number,column:number] | undefined>;
+
+
+  public updatepointer(pe:[line:number,column:number] | undefined){
+    this.pointerOver.emit(pe);
   }
 
-  highlightColumn(column: number) {
-    this.highlight = { column };
+  public isHighlited(line:number,column:number) {
+    const highlightCell   = this.highlight as HighlightCell;
+    const highlightColumn = this.highlight as HighlightColumn;
+    const highlightLine = this.highlight as HighlightLine;
+    return (( highlightCell.cell && highlightCell.cell[0] === line && highlightCell.cell[1] === column )
+        || ( highlightColumn && highlightColumn.column === column )
+        || (highlightLine && highlightLine.line === line));
   }
 
-
-  highlightCell(line: number, column: number) {
-    this.highlight = { cell: [line, column] };
-  }
-
-  pointerOut() {
-    this.pointerOver.emit(undefined);
-  }
-
-  pointerOverCell(line: number, column: number) {
-    this.pointerOver.emit([line, column]);
-  }
-
-  
-                      
 }
-
-export type HighlightLine = {line: number};
-export type HighlightColumn = {column: number};
-export type HighlightCell = {cell: [line: number, column: number]};
+export type HighlightLine = {readonly line: number};
+export type HighlightColumn = {readonly column: number};
+export type HighlightCell = {readonly cell: readonly [line: number, column: number]};
 export type Highlight = undefined
                       | HighlightLine
                       | HighlightColumn
                       | HighlightCell;
-
-

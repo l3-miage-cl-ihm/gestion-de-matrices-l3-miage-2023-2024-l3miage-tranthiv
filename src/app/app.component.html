@@ -1,35 +1,48 @@
 <h1>L3M 2023-2024 : Matrices</h1>
-<b>Dimensions des matrics</b>
-<br>
-<br>
-<div> M1 lines :
-    <input type="number" [ngModel]="sigL1()" (change)="changeL1($any($event.target).value)">
-</div>
-<div>
-    M1 columns :
-    <input type="number" [ngModel]="sigH1()" (change)="changeH1($any($event.target).value)">
-</div>
-<div>
-    M2 lines :
-    <input type="number" [ngModel]="sigL2()" (change)="changeL2($any($event.target).value)">
-</div>
-<div>
-    M2 columns :
-    <input type="number" [ngModel]="sigH2()" (change)="changeH2($any($event).target.value)">
-</div>
 
-<br>
-<br>
+à compléter...
+<pre>
+    <input type="number"
+        [ngModel]="sigL1()"
+        (ngModelChange) = "updateL1($event)">
+    <input type="number"
+        [ngModel]="sigH1()"
+        (ngModelChange) = "updateH1($event)">
+    <input type="number"
+        [ngModel]="sigL2()"
+        (ngModelChange) = "updateL2($event)">
+    <input type="number"
+        [ngModel]="sigH2()"
+        (ngModelChange) = "updateH2($event)">        
+    <app-matrix
+        [highlight]="sigHhilightInM1()"
+        [data] = "sigM1()">
+    </app-matrix>
+    <app-matrix
+        [highlight]="sigHhilightInM2()"
+        [data] = "sigM2()">
+    </app-matrix>
 
+    <div *ngIf="sigM1plusM2() as Matrix;else elseBlock1">
+        <app-matrix 
+            [highlight]="sigHhilightInM1plusM2()"
+            [data] = "Matrix"
+            (pointerOver) = "overM1plusM2($event)">
+        </app-matrix>
+    </div>
+    <ng-template #elseBlock1>
+        matrice plus non définie
+    </ng-template>
 
-<div> M1= <app-matrix [data]="sigM1()"></app-matrix>
-     M2=<app-matrix [data]="sigM2()"></app-matrix> </div>
+    <div *ngIf="sigM1xM2() as Matrix;else elseBlock2">
+        <app-matrix
+            [highlight]="sigHhilightInM1xM2()"
+            [data] = "Matrix"
+            (pointerOver) = "overM1xM2($event)">
+        </app-matrix>
+    </div>
+    <ng-template #elseBlock2>
+        matrice fois non définie
+    </ng-template>
 
-
-<div> M1+M2=
-<app-matrix [data]="sigM1plusM2()">M1+M2</app-matrix>
-M1*M2=
-<app-matrix [data]="sigM1xM2()">M1*M2</app-matrix>
-</div>
-
-
+</pre>

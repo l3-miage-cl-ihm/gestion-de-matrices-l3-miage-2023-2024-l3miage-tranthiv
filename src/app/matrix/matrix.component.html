@@ -1,7 +1,10 @@
-
+<p>matrix works!</p>
 <table class="matrix">
-    <tr *ngFor="let row of data, let i = index">
-        <td *ngFor="let v of getMatrixLine(data, i); index as j">{{v}}
+    <tr *ngFor="let row of data; index as i">
+        <td *ngFor="let col of row ;index as j">
+            {{col}}
+            <p (pointerenter)="updatepointer([i,j])"></p>
+            <p (pointerleave)="updatepointer(undefined)"></p>
         </td>
     </tr>
 </table>
